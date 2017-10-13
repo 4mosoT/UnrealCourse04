@@ -4,6 +4,11 @@
 #include "Engine/World.h"
 
 
+void ATankAiController::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank()) GetControllerTank()->AimtAt(GetPlayerTank()->GetActorLocation());
+}
+
 ATank*  ATankAiController::GetControllerTank() const {
 
 	return Cast<ATank>(GetPawn());
