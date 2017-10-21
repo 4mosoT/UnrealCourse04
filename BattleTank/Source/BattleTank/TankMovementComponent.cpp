@@ -4,7 +4,6 @@
 #include "TankTrack.h"
 
 void UTankMovementComponent::Initialise(UTankTrack* LefTrackToSet, UTankTrack* RightTrackToSet) {
-	if (!LefTrackToSet || !RightTrackToSet) return;
 	LeftTrack = LefTrackToSet;
 	RightTrack = RightTrackToSet;
 
@@ -12,12 +11,16 @@ void UTankMovementComponent::Initialise(UTankTrack* LefTrackToSet, UTankTrack* R
 
 
 void UTankMovementComponent::IntendMoveForward(float Throw) {
+	if (!LeftTrack || !RightTrack) return;
+
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw) {
+	if (!LeftTrack || !RightTrack) return;
+
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 
