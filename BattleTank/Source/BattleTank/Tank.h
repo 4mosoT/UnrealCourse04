@@ -9,6 +9,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
+class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -34,8 +35,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	UTankAimingComponent* TankAimingComponent = nullptr;
 	
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UPROPERTY(BluePrintReadonly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:	
 	// Called to bind functionality to input

@@ -20,12 +20,6 @@ ATank* ATankPlayerController::GetControllerTank() const {
 
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-
-	ATank* ControlledTank = GetControllerTank();
-	if (!ControlledTank) {
-		UE_LOG(LogTemp, Warning, TEXT("PlayController not possesing a tank"));
-	}
-	else UE_LOG(LogTemp, Warning, TEXT("PlayController possesing: %s"), *ControlledTank->GetName());
 }
 
 void ATankPlayerController::AimTowardCrosshair() {
