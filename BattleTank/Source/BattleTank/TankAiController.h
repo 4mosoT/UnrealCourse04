@@ -16,5 +16,6 @@ class BATTLETANK_API ATankAiController : public AAIController
 public:
 	void Tick(float) override;
 
+	float AcceptanceRadius = 3000; 
 	
 };
