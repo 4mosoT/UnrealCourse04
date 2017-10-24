@@ -17,8 +17,12 @@ public:
 	void BeginPlay() override;
 	void Tick(float) override;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = Setup)
+		ATank* GetControllerTank() const;
+
 private:
-	ATank* GetControllerTank() const;
+
 
 	//Start the tank moving the barrel so that a shot would hit 
 	// where the crosshay intersects the world
