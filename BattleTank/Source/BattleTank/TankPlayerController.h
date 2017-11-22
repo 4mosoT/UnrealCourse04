@@ -6,8 +6,10 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
-
+class UTankAimingComponent;
+/*
+]*Responsible for helping the player aim.
+*/
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
@@ -18,12 +20,12 @@ public:
 	void Tick(float) override;
 
 protected:
-	UFUNCTION(BlueprintCallable, Category = Setup)
-		ATank* GetControllerTank() const;
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+		void FoundAimingComponent(UTankAimingComponent* AiminCompRef);
 
 private:
 
-
+	UTankAimingComponent* AimingComponent = nullptr;
 	//Start the tank moving the barrel so that a shot would hit 
 	// where the crosshay intersects the world
 	void AimTowardCrosshair();
