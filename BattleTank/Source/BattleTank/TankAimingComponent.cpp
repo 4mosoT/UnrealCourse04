@@ -33,10 +33,11 @@ void UTankAimingComponent::BeginPlay()
 void  UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds) FiringStatus = EFiringStatus::Reloading; 
-	else if (IsBarrelMoving())  FiringStatus = EFiringStatus::Aiming;
-	else FiringStatus = EFiringStatus::Locked;
-
+		if (NumberOfRounds == 0) FiringStatus = EFiringStatus::OutOfAmmo; 
+		else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds) FiringStatus = EFiringStatus::Reloading;
+		else if (IsBarrelMoving())  FiringStatus = EFiringStatus::Aiming;
+		else FiringStatus = EFiringStatus::Locked;
+	
 }
 
 void UTankAimingComponent::SetBarrelAndTurretReference(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet) {
@@ -72,7 +73,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation) {
 
 void UTankAimingComponent::MoveTurrentAndBarrel(FVector AimDirection) {
 
-	if (!ensure(Barrel && Turret)) { return;}
+	if (!ensure(Barrel && Turret)) { return;}	
 	// Difference between current barrel rotation and AimDirection
 	FRotator BarrelRorator = Barrel->GetForwardVector().Rotation();
 	FRotator AimAsRotator = AimDirection.Rotation();
@@ -95,7 +96,7 @@ void UTankAimingComponent::Fire() {
 
 	if (!ensure(Barrel && ProjectileBlueprint)) return;
 
-	if (FiringStatus != EFiringStatus::Reloading) {
+	if (FiringStatus == EFiringStatus::Locked || FiringStatus == EFiringStatus::Aiming) {
 		//Spawn a projectile on the socket barrel location
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
@@ -103,12 +104,17 @@ void UTankAimingComponent::Fire() {
 			);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
-
+		NumberOfRounds --;
 	}
 }
 
 EFiringStatus UTankAimingComponent::GetFiringStatus() const
 {
 	return FiringStatus;
+}
+
+int32 UTankAimingComponent::GetRoundsLeft() const
+{
+	return NumberOfRounds;
 }
 
