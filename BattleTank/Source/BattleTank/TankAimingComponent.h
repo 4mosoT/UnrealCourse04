@@ -37,10 +37,11 @@ public:
 	UFUNCTION(BluePrintCallable)
 		void Fire();
 
+	EFiringStatus GetFiringStatus() const;
 protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = State)
-		EFiringStatus FiringStatus = EFiringStatus::Locked;
+		EFiringStatus FiringStatus = EFiringStatus::Aiming;
 
 private:
 	UTankBarrel* Barrel = nullptr;
