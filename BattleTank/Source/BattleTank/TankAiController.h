@@ -27,6 +27,8 @@ protected:
 private:
 	virtual void SetPawn(APawn* InPawn) override;
 
+	ATank* PossesedTank;
+
 	UFUNCTION()
 	void OnTankDeath();
 	

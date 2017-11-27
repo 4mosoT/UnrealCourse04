@@ -16,6 +16,12 @@ ATank::ATank()
 	
 }
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+}
+
 float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEnvet, AController * EventInstigator, AActor * DamageCauser)
 {
 //	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEnvet, EventInstigator, DamageCauser);

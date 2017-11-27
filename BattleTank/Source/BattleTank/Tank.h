@@ -31,8 +31,9 @@ private:
 	UPROPERTY(EditDefaultsonly, Category = "Setup")
 	int32 StartingHealth = 100;
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth;
 
+	virtual void BeginPlay() override;
 
 
 
