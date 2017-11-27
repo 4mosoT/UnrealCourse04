@@ -11,5 +11,17 @@ ATank::ATank()
 	
 }
 
-
-
+float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEnvet, AController * EventInstigator, AActor * DamageCauser)
+{
+//	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEnvet, EventInstigator, DamageCauser);
+//	float DamageToApply = FMath::Clamp(ActualDamage, 0.f, Health);
+//	if (ActualDamage > 0) {
+		
+//		Health -= DamageToApply;
+//	}
+	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
+	int32 DamageToApply = FMath::Clamp(DamagePoints, 0, CurrentHealth);
+	CurrentHealth -= DamageToApply;
+	UE_LOG(LogTemp, Warning, TEXT("DamageAmount: %f DamageToApply: %i"), DamageAmount, DamageToApply)
+	return DamageToApply;
+}
