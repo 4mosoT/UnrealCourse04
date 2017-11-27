@@ -16,10 +16,12 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
+
 	void BeginPlay() override;
 	void Tick(float) override;
 
 protected:
+
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AiminCompRef);
 
@@ -43,5 +45,10 @@ private:
 	
 	UPROPERTY(EditAnyWhere)
 	float LineTraceRange = 1000000;
+
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTankDeath();
 	
 };
